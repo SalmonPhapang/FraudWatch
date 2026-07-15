@@ -56,7 +56,7 @@ public class FraudRule implements Serializable {
     @Column(name = "rule_type", nullable = false)
     private RuleType ruleType;
 
-    @OneToMany(mappedBy = "fraudRule", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "fraudRule", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<FraudRuleCondition> conditions;
 
     @OneToMany(mappedBy = "fraudRule", cascade = CascadeType.ALL, orphanRemoval = true)

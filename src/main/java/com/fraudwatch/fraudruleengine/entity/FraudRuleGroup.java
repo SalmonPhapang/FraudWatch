@@ -1,5 +1,6 @@
 package com.fraudwatch.fraudruleengine.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,16 +26,20 @@ public class FraudRuleGroup implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fraud_rule_id", nullable = false)
+    @JsonIgnore
     private FraudRule fraudRule;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_group_id")
+    @JsonIgnore
     private FraudRuleGroup parentGroup;
 
     @OneToMany(mappedBy = "parentGroup")
+    @JsonIgnore
     private List<FraudRuleGroup> childGroups;
 
     @OneToMany(mappedBy = "group")
+    @JsonIgnore
     private List<FraudRuleCondition> conditions;
 
     @Enumerated(EnumType.STRING)
