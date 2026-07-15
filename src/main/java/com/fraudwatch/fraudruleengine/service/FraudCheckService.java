@@ -133,7 +133,7 @@ public class FraudCheckService {
     
     // Fallback method for circuit breaker/rate limiter
     public FraudCheckResponse checkFraudFallback(String idempotencyKey, FraudCheckRequest request, Exception ex) {
-        log.warn("Fallback triggered for fraud check: {}", ex.getMessage());
+        log.warn("Fallback triggered for fraud check", ex);
         // In fallback mode, we can either allow the transaction (fail-open) or block (fail-closed)
         // Here we'll fail-open for safety, but this can be adjusted based on business needs
         return new FraudCheckResponse(

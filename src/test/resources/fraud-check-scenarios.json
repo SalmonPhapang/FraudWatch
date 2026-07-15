@@ -1,0 +1,314 @@
+[
+  {
+    "id": 1,
+    "name": "New Account + High Amount",
+    "description": "New customer (1 day old), amount $5,000. Triggers Rule 1 (New Account High Amount).",
+    "expectedDecision": "REVIEW",
+    "expectedMatchedRules": ["New Account High Amount"],
+    "request": {
+      "sessionId": "ds-test-s1",
+      "customer": {
+        "id": "ds-cust-1",
+        "email": "new@test.com",
+        "accountAgeDays": 1,
+        "failedLoginAttempts": 0,
+        "isVerified": false
+      },
+      "device": {
+        "id": "ds-dev-1",
+        "fingerprint": "fp-ds-1",
+        "userAgent": "Mozilla/5.0",
+        "ipAddress": "192.168.1.10",
+        "isEmulator": false,
+        "isRooted": false
+      },
+      "merchant": {
+        "id": "ds-merch-1",
+        "name": "Test Store",
+        "country": "US",
+        "riskScore": 10
+      },
+      "payment": {
+        "id": "ds-pay-1",
+        "amount": 5000,
+        "currency": "ZAR",
+        "paymentMethod": "credit_card",
+        "cardHash": "hash-ds-1",
+        "lastFour": "1111",
+        "failedAttempts": 0
+      },
+      "location": {
+        "isVpn": false,
+        "isProxy": false
+      }
+    }
+  },
+  {
+    "id": 2,
+    "name": "Old Account + Low Amount",
+    "description": "Established customer (1 year), amount $50. No rules should match.",
+    "expectedDecision": "ALLOW",
+    "expectedMatchedRules": [],
+    "request": {
+      "sessionId": "ds-test-s2",
+      "customer": {
+        "id": "ds-cust-2",
+        "email": "old@test.com",
+        "accountAgeDays": 365,
+        "failedLoginAttempts": 0,
+        "isVerified": true
+      },
+      "device": {
+        "id": "ds-dev-2",
+        "fingerprint": "fp-ds-2",
+        "userAgent": "Mozilla/5.0",
+        "ipAddress": "10.0.0.10",
+        "isEmulator": false,
+        "isRooted": false
+      },
+      "merchant": {
+        "id": "ds-merch-1",
+        "name": "Test Store",
+        "country": "US",
+        "riskScore": 10
+      },
+      "payment": {
+        "id": "ds-pay-2",
+        "amount": 50,
+        "currency": "ZAR",
+        "paymentMethod": "debit_card",
+        "cardHash": "hash-ds-2",
+        "lastFour": "2222",
+        "failedAttempts": 0
+      },
+      "location": {
+        "isVpn": false,
+        "isProxy": false
+      }
+    }
+  },
+  {
+    "id": 3,
+    "name": "High Amount Transaction",
+    "description": "Amount $15,000 exceeds Rule 3 threshold (amount > 10000).",
+    "expectedDecision": "BLOCK",
+    "expectedMatchedRules": ["High Amount Transaction"],
+    "request": {
+      "sessionId": "ds-test-s3",
+      "customer": {
+        "id": "ds-cust-3",
+        "email": "user3@test.com",
+        "accountAgeDays": 100,
+        "failedLoginAttempts": 0,
+        "isVerified": true
+      },
+      "device": {
+        "id": "ds-dev-3",
+        "fingerprint": "fp-ds-3",
+        "userAgent": "Mozilla/5.0",
+        "ipAddress": "10.0.0.20",
+        "isEmulator": false,
+        "isRooted": false
+      },
+      "merchant": {
+        "id": "ds-merch-1",
+        "name": "Test Store",
+        "country": "US",
+        "riskScore": 10
+      },
+      "payment": {
+        "id": "ds-pay-3",
+        "amount": 15000,
+        "currency": "ZAR",
+        "paymentMethod": "wire_transfer",
+        "cardHash": "hash-ds-3",
+        "lastFour": "3333",
+        "failedAttempts": 0
+      },
+      "location": {
+        "isVpn": false,
+        "isProxy": false
+      }
+    }
+  },
+  {
+    "id": 4,
+    "name": "New Account + Very High Amount (Combo)",
+    "description": "New customer (1 day), amount $25,000. Triggers BOTH Rule 1 (REVIEW) and Rule 3 (BLOCK). BLOCK should win as higher severity.",
+    "expectedDecision": "BLOCK",
+    "expectedMatchedRules": ["New Account High Amount", "High Amount Transaction"],
+    "request": {
+      "sessionId": "ds-test-s4",
+      "customer": {
+        "id": "ds-cust-4",
+        "email": "new-high@test.com",
+        "accountAgeDays": 1,
+        "failedLoginAttempts": 0,
+        "isVerified": false
+      },
+      "device": {
+        "id": "ds-dev-4",
+        "fingerprint": "fp-ds-4",
+        "userAgent": "Mozilla/5.0",
+        "ipAddress": "10.0.0.30",
+        "isEmulator": false,
+        "isRooted": false
+      },
+      "merchant": {
+        "id": "ds-merch-1",
+        "name": "Test Store",
+        "country": "US",
+        "riskScore": 10
+      },
+      "payment": {
+        "id": "ds-pay-4",
+        "amount": 25000,
+        "currency": "ZAR",
+        "paymentMethod": "wire_transfer",
+        "cardHash": "hash-ds-4",
+        "lastFour": "4444",
+        "failedAttempts": 0
+      },
+      "location": {
+        "isVpn": false,
+        "isProxy": false
+      }
+    }
+  },
+  {
+    "id": 5,
+    "name": "New Account + Moderate Amount",
+    "description": "New customer (2 days), amount $1,500. Triggers Rule 1 (New Account High Amount).",
+    "expectedDecision": "REVIEW",
+    "expectedMatchedRules": ["New Account High Amount"],
+    "request": {
+      "sessionId": "ds-test-s5",
+      "customer": {
+        "id": "ds-cust-5",
+        "email": "new-moderate@test.com",
+        "accountAgeDays": 2,
+        "failedLoginAttempts": 0,
+        "isVerified": false
+      },
+      "device": {
+        "id": "ds-dev-5",
+        "fingerprint": "fp-ds-5",
+        "userAgent": "Mozilla/5.0",
+        "ipAddress": "10.0.0.40",
+        "isEmulator": false,
+        "isRooted": false
+      },
+      "merchant": {
+        "id": "ds-merch-1",
+        "name": "Test Store",
+        "country": "US",
+        "riskScore": 10
+      },
+      "payment": {
+        "id": "ds-pay-5",
+        "amount": 1500,
+        "currency": "ZAR",
+        "paymentMethod": "credit_card",
+        "cardHash": "hash-ds-5",
+        "lastFour": "5555",
+        "failedAttempts": 0
+      },
+      "location": {
+        "isVpn": false,
+        "isProxy": false
+      }
+    }
+  },
+  {
+    "id": 6,
+    "name": "Rooted Device + New Account + High Amount",
+    "description": "Rooted device, new customer (1 day), amount $3,000. Triggers Rule 1, device flags are extra context.",
+    "expectedDecision": "REVIEW",
+    "expectedMatchedRules": ["New Account High Amount"],
+    "request": {
+      "sessionId": "ds-test-s6",
+      "customer": {
+        "id": "ds-cust-6",
+        "email": "rooted@test.com",
+        "accountAgeDays": 1,
+        "failedLoginAttempts": 0,
+        "isVerified": false
+      },
+      "device": {
+        "id": "ds-dev-6",
+        "fingerprint": "fp-rooted",
+        "userAgent": "Mozilla/5.0",
+        "ipAddress": "192.168.1.50",
+        "isEmulator": true,
+        "isRooted": true
+      },
+      "merchant": {
+        "id": "ds-merch-1",
+        "name": "Test Store",
+        "country": "US",
+        "riskScore": 10
+      },
+      "payment": {
+        "id": "ds-pay-6",
+        "amount": 3000,
+        "currency": "ZAR",
+        "paymentMethod": "credit_card",
+        "cardHash": "hash-ds-6",
+        "lastFour": "6666",
+        "failedAttempts": 0
+      },
+      "location": {
+        "isVpn": false,
+        "isProxy": false
+      }
+    }
+  },
+  {
+    "id": 7,
+    "name": "Velocity Check - Rapid Transactions",
+    "description": "6 rapid transactions from same customer in quick succession. Should trigger Rule 2 (High Transaction Velocity) on the 6th request.",
+    "expectedDecision": "BLOCK",
+    "expectedMatchedRules": ["High Transaction Velocity"],
+    "isVelocityTest": true,
+    "velocityCustomerId": "ds-velo-cust-1",
+    "requestTemplate": {
+      "sessionId": "ds-test-velo-$i",
+      "customer": {
+        "id": "ds-velo-cust-1",
+        "email": "velo@test.com",
+        "accountAgeDays": 30,
+        "failedLoginAttempts": 0,
+        "isVerified": true
+      },
+      "device": {
+        "id": "ds-dev-velo",
+        "fingerprint": "fp-velo",
+        "userAgent": "Mozilla/5.0",
+        "ipAddress": "10.0.0.100",
+        "isEmulator": false,
+        "isRooted": false
+      },
+      "merchant": {
+        "id": "ds-merch-1",
+        "name": "Test Store",
+        "country": "US",
+        "riskScore": 10
+      },
+      "payment": {
+        "id": "ds-pay-velo-$i",
+        "amount": 100,
+        "currency": "ZAR",
+        "paymentMethod": "credit_card",
+        "cardHash": "hash-velo-$i",
+        "lastFour": "0000",
+        "failedAttempts": 0
+      },
+      "location": {
+        "isVpn": false,
+        "isProxy": false
+      }
+    },
+    "repeatCount": 6,
+    "expectedOnRequest": 6
+  }
+]

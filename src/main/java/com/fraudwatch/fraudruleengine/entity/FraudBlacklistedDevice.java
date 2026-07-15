@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SoftDelete;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,7 +16,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @SoftDelete
-public class FraudBlacklistedDevice {
+public class FraudBlacklistedDevice implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
