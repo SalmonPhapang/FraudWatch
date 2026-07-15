@@ -2,42 +2,46 @@
   {
     "id": 1,
     "name": "New Account + High Amount",
-    "description": "New customer (1 day old), amount $5,000. Triggers Rule 1 (New Account High Amount).",
+    "description": "New customer (1 day old) from Johannesburg, amount R12,000 at Takealot. Triggers Rule 1 (New Account High Amount).",
     "expectedDecision": "REVIEW",
     "expectedMatchedRules": ["New Account High Amount"],
     "request": {
-      "sessionId": "ds-test-s1",
+      "sessionId": "za-test-s1",
       "customer": {
-        "id": "ds-cust-1",
-        "email": "new@test.com",
+        "id": "za-cust-1",
+        "email": "new@webmail.co.za",
+        "phone": "+27712345678",
         "accountAgeDays": 1,
         "failedLoginAttempts": 0,
         "isVerified": false
       },
       "device": {
-        "id": "ds-dev-1",
-        "fingerprint": "fp-ds-1",
-        "userAgent": "Mozilla/5.0",
-        "ipAddress": "192.168.1.10",
+        "id": "za-dev-1",
+        "fingerprint": "fp-za-1",
+        "userAgent": "Mozilla/5.0 (Linux; Android 13; SM-S918B)",
+        "ipAddress": "41.13.24.56",
         "isEmulator": false,
         "isRooted": false
       },
       "merchant": {
-        "id": "ds-merch-1",
-        "name": "Test Store",
-        "country": "US",
+        "id": "za-merch-takealot",
+        "name": "Takealot",
+        "country": "ZA",
         "riskScore": 10
       },
       "payment": {
-        "id": "ds-pay-1",
-        "amount": 5000,
+        "id": "za-pay-1",
+        "amount": 12000,
         "currency": "ZAR",
         "paymentMethod": "credit_card",
-        "cardHash": "hash-ds-1",
+        "cardHash": "hash-za-1",
         "lastFour": "1111",
         "failedAttempts": 0
       },
       "location": {
+        "latitude": -26.2041,
+        "longitude": 28.0473,
+        "country": "ZA",
         "isVpn": false,
         "isProxy": false
       }
@@ -46,42 +50,46 @@
   {
     "id": 2,
     "name": "Old Account + Low Amount",
-    "description": "Established customer (1 year), amount $50. No rules should match.",
+    "description": "Established Cape Town customer (2 years), amount R250 at Woolworths. No rules should match.",
     "expectedDecision": "ALLOW",
     "expectedMatchedRules": [],
     "request": {
-      "sessionId": "ds-test-s2",
+      "sessionId": "za-test-s2",
       "customer": {
-        "id": "ds-cust-2",
-        "email": "old@test.com",
-        "accountAgeDays": 365,
+        "id": "za-cust-2",
+        "email": "old.capetown@gmail.co.za",
+        "phone": "+27721234567",
+        "accountAgeDays": 730,
         "failedLoginAttempts": 0,
         "isVerified": true
       },
       "device": {
-        "id": "ds-dev-2",
-        "fingerprint": "fp-ds-2",
-        "userAgent": "Mozilla/5.0",
-        "ipAddress": "10.0.0.10",
+        "id": "za-dev-2",
+        "fingerprint": "fp-za-2",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "ipAddress": "105.1.20.30",
         "isEmulator": false,
         "isRooted": false
       },
       "merchant": {
-        "id": "ds-merch-1",
-        "name": "Test Store",
-        "country": "US",
-        "riskScore": 10
+        "id": "za-merch-woolworths",
+        "name": "Woolworths",
+        "country": "ZA",
+        "riskScore": 5
       },
       "payment": {
-        "id": "ds-pay-2",
-        "amount": 50,
+        "id": "za-pay-2",
+        "amount": 250,
         "currency": "ZAR",
         "paymentMethod": "debit_card",
-        "cardHash": "hash-ds-2",
+        "cardHash": "hash-za-2",
         "lastFour": "2222",
         "failedAttempts": 0
       },
       "location": {
+        "latitude": -33.9249,
+        "longitude": 18.4241,
+        "country": "ZA",
         "isVpn": false,
         "isProxy": false
       }
@@ -90,42 +98,46 @@
   {
     "id": 3,
     "name": "High Amount Transaction",
-    "description": "Amount $15,000 exceeds Rule 3 threshold (amount > 10000).",
+    "description": "Amount R45,000 at Makro from Durban customer. Exceeds Rule 3 threshold (amount > R30,000).",
     "expectedDecision": "BLOCK",
     "expectedMatchedRules": ["High Amount Transaction"],
     "request": {
-      "sessionId": "ds-test-s3",
+      "sessionId": "za-test-s3",
       "customer": {
-        "id": "ds-cust-3",
-        "email": "user3@test.com",
-        "accountAgeDays": 100,
+        "id": "za-cust-3",
+        "email": "durban.buyer@outlook.com",
+        "phone": "+27831234567",
+        "accountAgeDays": 180,
         "failedLoginAttempts": 0,
         "isVerified": true
       },
       "device": {
-        "id": "ds-dev-3",
-        "fingerprint": "fp-ds-3",
-        "userAgent": "Mozilla/5.0",
-        "ipAddress": "10.0.0.20",
+        "id": "za-dev-3",
+        "fingerprint": "fp-za-3",
+        "userAgent": "Mozilla/5.0 (Linux; Android 14; SM-S928B)",
+        "ipAddress": "196.21.45.78",
         "isEmulator": false,
         "isRooted": false
       },
       "merchant": {
-        "id": "ds-merch-1",
-        "name": "Test Store",
-        "country": "US",
-        "riskScore": 10
+        "id": "za-merch-makro",
+        "name": "Makro",
+        "country": "ZA",
+        "riskScore": 15
       },
       "payment": {
-        "id": "ds-pay-3",
-        "amount": 15000,
+        "id": "za-pay-3",
+        "amount": 45000,
         "currency": "ZAR",
         "paymentMethod": "wire_transfer",
-        "cardHash": "hash-ds-3",
+        "cardHash": "hash-za-3",
         "lastFour": "3333",
         "failedAttempts": 0
       },
       "location": {
+        "latitude": -29.8587,
+        "longitude": 31.0218,
+        "country": "ZA",
         "isVpn": false,
         "isProxy": false
       }
@@ -134,42 +146,46 @@
   {
     "id": 4,
     "name": "New Account + Very High Amount (Combo)",
-    "description": "New customer (1 day), amount $25,000. Triggers BOTH Rule 1 (REVIEW) and Rule 3 (BLOCK). BLOCK should win as higher severity.",
+    "description": "New customer (1 day) from Pretoria, amount R80,000 via wire transfer. Triggers BOTH Rule 1 (REVIEW) and Rule 3 (BLOCK). BLOCK should win as higher severity.",
     "expectedDecision": "BLOCK",
     "expectedMatchedRules": ["New Account High Amount", "High Amount Transaction"],
     "request": {
-      "sessionId": "ds-test-s4",
+      "sessionId": "za-test-s4",
       "customer": {
-        "id": "ds-cust-4",
-        "email": "new-high@test.com",
+        "id": "za-cust-4",
+        "email": "pretoria.new@yahoo.com",
+        "phone": "+27761234567",
         "accountAgeDays": 1,
         "failedLoginAttempts": 0,
         "isVerified": false
       },
       "device": {
-        "id": "ds-dev-4",
-        "fingerprint": "fp-ds-4",
-        "userAgent": "Mozilla/5.0",
-        "ipAddress": "10.0.0.30",
+        "id": "za-dev-4",
+        "fingerprint": "fp-za-4",
+        "userAgent": "Mozilla/5.0 (Linux; Android 13; SM-A546B)",
+        "ipAddress": "102.132.45.67",
         "isEmulator": false,
         "isRooted": false
       },
       "merchant": {
-        "id": "ds-merch-1",
-        "name": "Test Store",
-        "country": "US",
+        "id": "za-merch-game",
+        "name": "Game",
+        "country": "ZA",
         "riskScore": 10
       },
       "payment": {
-        "id": "ds-pay-4",
-        "amount": 25000,
+        "id": "za-pay-4",
+        "amount": 80000,
         "currency": "ZAR",
         "paymentMethod": "wire_transfer",
-        "cardHash": "hash-ds-4",
+        "cardHash": "hash-za-4",
         "lastFour": "4444",
         "failedAttempts": 0
       },
       "location": {
+        "latitude": -25.7449,
+        "longitude": 28.1879,
+        "country": "ZA",
         "isVpn": false,
         "isProxy": false
       }
@@ -178,42 +194,46 @@
   {
     "id": 5,
     "name": "New Account + Moderate Amount",
-    "description": "New customer (2 days), amount $1,500. Triggers Rule 1 (New Account High Amount).",
+    "description": "New Port Elizabeth customer (2 days), amount R3,500 at Mr Price. Triggers Rule 1 (New Account High Amount).",
     "expectedDecision": "REVIEW",
     "expectedMatchedRules": ["New Account High Amount"],
     "request": {
-      "sessionId": "ds-test-s5",
+      "sessionId": "za-test-s5",
       "customer": {
-        "id": "ds-cust-5",
-        "email": "new-moderate@test.com",
+        "id": "za-cust-5",
+        "email": "pe.buyer@webmail.co.za",
+        "phone": "+27821234567",
         "accountAgeDays": 2,
         "failedLoginAttempts": 0,
         "isVerified": false
       },
       "device": {
-        "id": "ds-dev-5",
-        "fingerprint": "fp-ds-5",
-        "userAgent": "Mozilla/5.0",
-        "ipAddress": "10.0.0.40",
+        "id": "za-dev-5",
+        "fingerprint": "fp-za-5",
+        "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)",
+        "ipAddress": "155.239.120.45",
         "isEmulator": false,
         "isRooted": false
       },
       "merchant": {
-        "id": "ds-merch-1",
-        "name": "Test Store",
-        "country": "US",
+        "id": "za-merch-mrprice",
+        "name": "Mr Price",
+        "country": "ZA",
         "riskScore": 10
       },
       "payment": {
-        "id": "ds-pay-5",
-        "amount": 1500,
+        "id": "za-pay-5",
+        "amount": 3500,
         "currency": "ZAR",
         "paymentMethod": "credit_card",
-        "cardHash": "hash-ds-5",
+        "cardHash": "hash-za-5",
         "lastFour": "5555",
         "failedAttempts": 0
       },
       "location": {
+        "latitude": -33.9608,
+        "longitude": 25.6022,
+        "country": "ZA",
         "isVpn": false,
         "isProxy": false
       }
@@ -222,42 +242,46 @@
   {
     "id": 6,
     "name": "Rooted Device + New Account + High Amount",
-    "description": "Rooted device, new customer (1 day), amount $3,000. Triggers Rule 1, device flags are extra context.",
+    "description": "Rooted device from Bloemfontein, new customer (1 day), amount R7,500 at Checkers. Triggers Rule 1; device flags are extra context.",
     "expectedDecision": "REVIEW",
     "expectedMatchedRules": ["New Account High Amount"],
     "request": {
-      "sessionId": "ds-test-s6",
+      "sessionId": "za-test-s6",
       "customer": {
-        "id": "ds-cust-6",
-        "email": "rooted@test.com",
+        "id": "za-cust-6",
+        "email": "rooted.user@gmail.co.za",
+        "phone": "+27731234567",
         "accountAgeDays": 1,
         "failedLoginAttempts": 0,
         "isVerified": false
       },
       "device": {
-        "id": "ds-dev-6",
-        "fingerprint": "fp-rooted",
-        "userAgent": "Mozilla/5.0",
-        "ipAddress": "192.168.1.50",
+        "id": "za-dev-6",
+        "fingerprint": "fp-rooted-za",
+        "userAgent": "Mozilla/5.0 (Linux; Android 12; SM-G998B)",
+        "ipAddress": "197.85.50.10",
         "isEmulator": true,
         "isRooted": true
       },
       "merchant": {
-        "id": "ds-merch-1",
-        "name": "Test Store",
-        "country": "US",
+        "id": "za-merch-checkers",
+        "name": "Checkers",
+        "country": "ZA",
         "riskScore": 10
       },
       "payment": {
-        "id": "ds-pay-6",
-        "amount": 3000,
+        "id": "za-pay-6",
+        "amount": 7500,
         "currency": "ZAR",
         "paymentMethod": "credit_card",
-        "cardHash": "hash-ds-6",
+        "cardHash": "hash-za-6",
         "lastFour": "6666",
         "failedAttempts": 0
       },
       "location": {
+        "latitude": -29.0852,
+        "longitude": 26.1596,
+        "country": "ZA",
         "isVpn": false,
         "isProxy": false
       }
@@ -266,49 +290,106 @@
   {
     "id": 7,
     "name": "Velocity Check - Rapid Transactions",
-    "description": "6 rapid transactions from same customer in quick succession. Should trigger Rule 2 (High Transaction Velocity) on the 6th request.",
+    "description": "6 rapid transactions from same Sandton customer in quick succession. Should trigger Rule 2 (High Transaction Velocity) on the 6th request.",
     "expectedDecision": "BLOCK",
     "expectedMatchedRules": ["High Transaction Velocity"],
     "isVelocityTest": true,
-    "velocityCustomerId": "ds-velo-cust-1",
+    "velocityCustomerId": "za-velo-cust-1",
     "requestTemplate": {
-      "sessionId": "ds-test-velo-$i",
+      "sessionId": "za-test-velo-$i",
       "customer": {
-        "id": "ds-velo-cust-1",
-        "email": "velo@test.com",
-        "accountAgeDays": 30,
+        "id": "za-velo-cust-1",
+        "email": "sandton.shopper@outlook.com",
+        "phone": "+27711234567",
+        "accountAgeDays": 60,
         "failedLoginAttempts": 0,
         "isVerified": true
       },
       "device": {
-        "id": "ds-dev-velo",
-        "fingerprint": "fp-velo",
-        "userAgent": "Mozilla/5.0",
-        "ipAddress": "10.0.0.100",
+        "id": "za-dev-velo",
+        "fingerprint": "fp-velo-za",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "ipAddress": "41.13.100.200",
         "isEmulator": false,
         "isRooted": false
       },
       "merchant": {
-        "id": "ds-merch-1",
-        "name": "Test Store",
-        "country": "US",
+        "id": "za-merch-spar",
+        "name": "Spar",
+        "country": "ZA",
         "riskScore": 10
       },
       "payment": {
-        "id": "ds-pay-velo-$i",
-        "amount": 100,
+        "id": "za-pay-velo-$i",
+        "amount": 200,
         "currency": "ZAR",
         "paymentMethod": "credit_card",
-        "cardHash": "hash-velo-$i",
+        "cardHash": "hash-velo-za-$i",
         "lastFour": "0000",
         "failedAttempts": 0
       },
       "location": {
+        "latitude": -26.1076,
+        "longitude": 28.0567,
+        "country": "ZA",
         "isVpn": false,
         "isProxy": false
       }
     },
     "repeatCount": 6,
     "expectedOnRequest": 6
+  },
+  {
+    "id": 8,
+    "name": "International Transaction - SA Customer Buying from US Merchant",
+    "description": "SA customer (verified, established account) purchasing ~R25,000 worth of electronics from Amazon US in USD. Cross-border scenario — merchant.country (US) differs from location.country (ZA), so Cross-Border Transaction rule should trigger for REVIEW.",
+    "expectedDecision": "REVIEW",
+    "expectedMatchedRules": ["Cross-Border Transaction"],
+    "request": {
+      "sessionId": "za-test-intl-1",
+      "customer": {
+        "id": "za-cust-intl-1",
+        "email": "jhb.international@gmail.co.za",
+        "phone": "+27714567890",
+        "accountAgeDays": 365,
+        "failedLoginAttempts": 0,
+        "isVerified": true
+      },
+      "device": {
+        "id": "za-dev-intl-1",
+        "fingerprint": "fp-intl-za-1",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "ipAddress": "41.13.50.80",
+        "isEmulator": false,
+        "isRooted": false
+      },
+      "merchant": {
+        "id": "us-merch-amazon",
+        "name": "Amazon US",
+        "country": "US",
+        "riskScore": 30
+      },
+      "payment": {
+        "id": "za-pay-intl-1",
+        "amount": 1380,
+        "currency": "USD",
+        "paymentMethod": "credit_card",
+        "cardHash": "hash-intl-za-1",
+        "lastFour": "7777",
+        "failedAttempts": 0
+      },
+      "location": {
+        "latitude": -26.2041,
+        "longitude": 28.0473,
+        "country": "ZA",
+        "isVpn": false,
+        "isProxy": false
+      },
+      "authentication": {
+        "method": "3DS",
+        "isMfaEnabled": true,
+        "isMfaVerified": true
+      }
+    }
   }
 ]

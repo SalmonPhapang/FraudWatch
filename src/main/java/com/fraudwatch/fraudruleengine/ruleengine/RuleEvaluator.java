@@ -6,9 +6,12 @@ import com.fraudwatch.fraudruleengine.entity.FraudRule;
 import com.fraudwatch.fraudruleengine.entity.FraudRuleCondition;
 import org.springframework.stereotype.Component;
 
+import com.fraudwatch.fraudruleengine.entity.Operator;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Component
 public class RuleEvaluator {
@@ -28,6 +31,17 @@ public class RuleEvaluator {
         }
         for (FraudRuleCondition condition : conditions) {
             Object actualValue = getFieldValue(requestMap, condition.getField());
+            
+            // Handle field-comparison operators inline by resolving the value as a field path
+            if (condition.getOperator() == Operator.FIELD_NOT_EQUALS) {
+                Object comparisonValue = getFieldValue(requestMap, condition.getValue());
+                boolean match = Objects.equals(actualValue, comparisonValue);
+                if (match) {
+                    return false;
+                }
+                continue;
+            }
+            
             OperatorStrategy strategy = operatorStrategyFactory.getStrategy(condition.getOperator());
             if (strategy == null || !strategy.evaluate(actualValue, condition)) {
                 return false;

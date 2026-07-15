@@ -18,7 +18,8 @@ public enum Operator {
     VELOCITY_LT("VELOCITY_LT"),
     VELOCITY_GTE("VELOCITY_GTE"),
     VELOCITY_LTE("VELOCITY_LTE"),
-    VELOCITY_EQ("VELOCITY_EQ");
+    VELOCITY_EQ("VELOCITY_EQ"),
+    FIELD_NOT_EQUALS("FIELD_NOT_EQUALS");
 
     private final String value;
 
