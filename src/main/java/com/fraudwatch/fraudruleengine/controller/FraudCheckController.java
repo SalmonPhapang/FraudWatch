@@ -30,7 +30,7 @@ public class FraudCheckController {
     @Operation(summary = "Check transaction for fraud")
     @RateLimiter(name = "fraud-check")
     public ResponseEntity<FraudCheckResponse> checkFraud(
-            @RequestHeader(name = "Idempotency-Key", required = false) String idempotencyKey,
+            @RequestHeader(name = "Idempotency-Key", required = true) String idempotencyKey,
             @Valid @RequestBody FraudCheckRequest request) {
         // First, send to Kafka for async processing (if needed)
         transactionKafkaProducer.sendTransaction(request);
