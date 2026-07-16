@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/fraud/rules")
+@RequestMapping("/v1/fraud/rules")
 @Tag(name = "Fraud Rules", description = "Fraud rule management endpoints")
 public class FraudRuleController {
 

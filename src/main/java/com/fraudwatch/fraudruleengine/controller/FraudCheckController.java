@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/fraud/check")
+@RequestMapping("/v1/fraud/check")
 @Tag(name = "Fraud Check", description = "Fraud detection endpoints")
 public class FraudCheckController {
 
